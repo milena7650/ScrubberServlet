@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>Welcome page</title>
+<script>
+function checkURL (abc) {
+	  var string = abc.value;
+	  if (!~string.indexOf("http")) {
+	    string = "http://" + string;
+	  }
+	  abc.value = string;
+	  return abc;
+	}
+</script>
+</head>
+	<body>
+		<h1> You are welcome to the nice page!</h1>
+		<form method="post" action="/ScrubberServlet/api/links">
+	  		Please, enter your Http address: <input type="url" name="urladdress" onblur="checkURL(this)><br>
+	  		<br/>
+	  		<input type="submit" value="Submit" >
+		</form>	
+	</body>
+</html>
