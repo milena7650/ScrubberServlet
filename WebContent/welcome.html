@@ -1,7 +1,7 @@
 <html>
 <head>
-<title>Welcome page</title>
-<script>
+	<title>Welcome page</title>
+	<script>
 function checkURL (abc) {
 	  var string = abc.value;
 	  if (!~string.indexOf("http")) {
@@ -12,12 +12,14 @@ function checkURL (abc) {
 	}
 </script>
 </head>
-	<body>
-		<h1> You are welcome to the nice page!</h1>
-		<form method="post" action="/ScrubberServlet/api/links">
-	  		Please, enter your Http address: <input type="url" name="urladdress" onblur="checkURL(this)><br>
-	  		<br/>
-	  		<input type="submit" value="Submit" >
-		</form>	
-	</body>
+<body>
+<h1> You are welcome to the nice page!</h1>
+<form method="post" action="/ScrubberServlet/api/links">
+	Please, enter your Http address:
+	<input type="url" name="urladdress" maxlength="256" onblur="checkURL(this)"><br>
+	<br/>
+	<input type="button" value="Submit" ><br/>
+	<span> <font color="green">Don't worry, it takes a few minutes...</font></span>
+</form>
+</body>
 </html>

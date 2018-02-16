@@ -9,9 +9,9 @@ import java.net.URL;
 
 
 public class Link implements Serializable {
-   
-	private static final long serialVersionUID = -8642516852667020927L;
-	private String url;
+
+    private static final long serialVersionUID = -8642516852667020927L;
+    private String url;
     private boolean valid;
 
     public Link(String url) {
@@ -31,16 +31,14 @@ public class Link implements Serializable {
     }
 
     public void setValid() {
-        if(doesURLExist())
-            this.valid = true;
-        else
-            this.valid = false;
-
+        this.valid = doesURLExist() ? true : false;
     }
 
     private boolean doesURLExist()
     {
         URL u = null;
+        if (url.startsWith("/"))
+            return false;
 
         try {
             u = new URL(url);
@@ -55,7 +53,7 @@ public class Link implements Serializable {
         }
 
         // We want to check the current URL
-        HttpURLConnection.setFollowRedirects(false);
+        //HttpURLConnection.setFollowRedirects(false);
 
         HttpURLConnection httpURLConnection = null;
         try {
@@ -65,7 +63,8 @@ public class Link implements Serializable {
             int responseCode = httpURLConnection.getResponseCode();
 
             // We only accept response code 200
-            return responseCode == HttpURLConnection.HTTP_OK;
+            // return responseCode == HttpURLConnection.HTTP_OK;
+            return (responseCode >= 200 && responseCode < 500);      // suppose response code in range 200-500 is valid
         } catch (IOException e) {
             return false;
         }

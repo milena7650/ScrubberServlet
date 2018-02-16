@@ -19,27 +19,27 @@ public class ScrubberHttpServlet extends HttpServlet {
 	public static final String HTML_START="<html><body>";
 	public static final String HTML_END="</body></html>";
 	public static final String filename = "/temp/pagelinks.ser";
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ScrubberHttpServlet() {        super();    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ScrubberHttpServlet() {        super();    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");  
+		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
+
 		File f = new File(filename);
 		if(!f.exists()){
 			out.print("Sorry, nothing to show. " );
 		}
 		else{
-			 Scrubber myScrubber = new Scrubber();
-		     myScrubber.loadFromFile(filename);
-		     out.print(HTML_START + myScrubber.printLinksAsHtmlList() + HTML_END);
+			Scrubber myScrubber = new Scrubber();
+			myScrubber.loadFromFile(filename);
+			out.print(HTML_START + myScrubber.printLinksAsHtmlList() + HTML_END);
 		}
 	}
 
@@ -47,18 +47,18 @@ public class ScrubberHttpServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");  
-		PrintWriter out = response.getWriter();    
-		String urladdress = request.getParameter("urladdress");  
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		String urladdress = request.getParameter("urladdress");
 		if(urladdress.isEmpty())
 			out.print("Sorry, nothing to show. " );
 		else{
-			 Scrubber myScrubber = new Scrubber();
-		     myScrubber.getLinksFromUrl(urladdress);
-		     if(myScrubber.saveToFile(filename))
-		    	 out.print("All done. " );
-		     else
-		    	 out.print("Sorry, something going wrong. Try again. " );
+			Scrubber myScrubber = new Scrubber();
+			myScrubber.getLinksFromUrl(urladdress);
+			if(myScrubber.saveToFile(filename))
+				out.print("All done. Links are saved in the file." );
+			else
+				out.print("Sorry, something going wrong. Try again. " );
 		}
 	}
 
